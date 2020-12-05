@@ -4,7 +4,7 @@ let ctx = canvas.getContext('2d');
 const gameArea = {
     frames: 0,
     level: 1,
-    speed: 8,
+    speed: 5,
     crocs: [],
     start: function (){
         this.interval = setInterval(updateArea, 20);
@@ -71,6 +71,34 @@ function moveCrocs(){
     });
 }
 
+let isAttack = false;
+let x = 0;
+let y = 0;
+
+canvas.addEventListener('mousedown', e => {
+    x = e.offsetX;
+    y = e.offsetY;
+    isAttack = true;
+    validationAttack();
+    console.log(score, y)
+});
+
+canvas.addEventListener('mouseup', e => {
+    x = 0;
+    y = 0;
+    isAttack = false;
+});
+
+let score = 0
+
+function validationAttack(){
+    gameArea.crocs.forEach(croc => {
+        if (y >= croc.y && y <= croc.y+50 && x >= croc.x && x <= croc.x+50){
+            score += 10;
+        }
+    })
+}
+
 function updateArea() {
     gameArea.frames += 1
     clearArea();
@@ -80,13 +108,6 @@ function updateArea() {
 }
 
 gameArea.start()
-
-// ROUND > LEVEL 
-
-// let round1 = 0;
-// let round2 = 1;
-// let round3 = 2;
-// let round4 = 3;
 
 // let level1 = 1;
 // let level2 = 1;
