@@ -4,7 +4,7 @@ let ctx = canvas.getContext('2d');
 const gameArea = {
     frames: 0,
     level: 1,
-    speed: 2,
+    speed: 8,
     crocs: [],
     start: function (){
         this.interval = setInterval(updateArea, 20);
@@ -56,14 +56,13 @@ function createCrocs(){
         let coluna2 = 120;
         let coluna3 = 210;
         let coluna4 = 300;
-        let startCroc = Math.random() * (0 );
-        gameArea.crocs.push(new Croc(coluna1, 0));
-        gameArea.crocs.push(new Croc(coluna2, 0));
-        gameArea.crocs.push(new Croc(coluna3, 0));
-        gameArea.crocs.push(new Croc(coluna4, 0));
+        let startCroc = (min, max) => Math.floor(Math.random() * (max - min) + min);
+        gameArea.crocs.push(new Croc(coluna1, startCroc(-250, 0)));
+        gameArea.crocs.push(new Croc(coluna2, startCroc(-250, 0)));
+        gameArea.crocs.push(new Croc(coluna3, startCroc(-250, 0)));
+        gameArea.crocs.push(new Croc(coluna4, startCroc(-250, 0)));
     }
 }
-//criar variavel depois da coluna4 com o math.random entre 0 e -200
 
 function moveCrocs(){
     gameArea.crocs.forEach(croc => {
@@ -81,16 +80,6 @@ function updateArea() {
 }
 
 gameArea.start()
-
-
-//     drawCroc(30, speed1, 50, 50, 'green');
-//     drawCroc(120, speed1, 50, 50, 'green');
-//     drawCroc(210, speed1, 50, 50, 'green');
-//     drawCroc(300, speed1, 50, 50, 'green');
-
-//     requestAnimationFrame(updateArea);
-// }
-
 
 // ROUND > LEVEL 
 
