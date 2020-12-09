@@ -6,10 +6,17 @@ const gameArea = {
     level: 1,
     speed: 5,
     crocs: [],
+    score: 0,
+    drawScore: function() {
+        ctx.font = '18px tahoma';
+        ctx.fillStyle = 'white';
+        ctx.fillText(`Score ${this.score}`, 165, 650);
+    },
     start: function (){
         this.interval = setInterval(updateArea, 20);
     }
-}
+};
+
 
 class Background {
     constructor(){
@@ -80,7 +87,6 @@ canvas.addEventListener('mousedown', e => {
     y = e.offsetY;
     isAttack = true;
     validationAttack();
-    console.log(score, y)
 });
 
 canvas.addEventListener('mouseup', e => {
@@ -89,12 +95,10 @@ canvas.addEventListener('mouseup', e => {
     isAttack = false;
 });
 
-let score = 0
-
 function validationAttack(){
     gameArea.crocs.forEach(croc => {
         if (y >= croc.y && y <= croc.y+50 && x >= croc.x && x <= croc.x+50){
-            score += 10;
+            gameArea.score += 10;
         }
     })
 }
@@ -104,17 +108,9 @@ function updateArea() {
     clearArea();
     background.draw();
     createCrocs();
-    moveCrocs()
+    moveCrocs();
+    gameArea.drawScore();
+    console.log(gameArea.score)
 }
 
 gameArea.start()
-
-// let level1 = 1;
-// let level2 = 1;
-// let level3 = 1;
-// let level4 = 1;
-
-// let speed1 = 0;
-// let speed2 = 0;
-// let speed3 = 0;
-// let speed4 = 0;
